@@ -1,5 +1,17 @@
 <template>
 <div id="app" style="height: 100%;">
+  <el-alert
+    v-if="response==1"
+    title="저장 성공!"
+    type="success"
+    show-icon>
+  </el-alert>
+  <el-alert
+    v-if="response==-1"
+    title="저장 실패"
+    type="error"
+    show-icon>
+  </el-alert>
   <el-container style="height: 100%;">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <div class="sidbar" style="height:100vh;">
@@ -67,6 +79,11 @@
               <el-table-column
                 label="스크랩수행"
                 width="120">
+                <template slot-scope="scope">
+                  <el-row>
+                    <el-button v-on:click="addYoutuber(scope.row.channelId)" plain>채널 추가</el-button>
+                  </el-row>
+                </template>
               </el-table-column>
             </el-table>
           </div>
@@ -96,12 +113,23 @@ export default {
       maxResults:'',
       filter:'',
       searchResult: false,
-      resultArr:[]
+      resultArr:[],
+      response: 0
     }
   },
   methods: {
-    sendRequest() {
-
+    addYoutuber(CID){
+      const baseURI = 'http://localhost:5000'
+      var data = {id:CID}
+      this.$http.post(`${baseURI}/youtubers`, data)
+      .then((result) => {
+        if (result.data.response === 'save success!') {
+          this.response = 1
+        } else {
+          this.response = -1
+        }
+        setTimeout(()=>{this.response = 0}, 1000)
+      })
     },
     changState(state) {
       switch (state) {
@@ -159,5 +187,13 @@ div.searchbar {
 }
 div.cell {
   text-align: center;
+}
+.el-alert--success {
+  z-index: 100;
+  width: 500px;
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
