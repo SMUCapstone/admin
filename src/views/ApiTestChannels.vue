@@ -74,12 +74,13 @@ export default {
       filter:'',
       searchResult: false,
       resultArr:[],
-      response: 0
+      response: 0,
+      baseURI:'http://34.64.113.15:5000'
     }
     },
     methods:{
         addYoutuber(CID){
-            const baseURI = 'http://localhost:5000'
+            const baseURI = this.baseURI
             var data = {id:CID}
             this.$http.post(`${baseURI}/youtubers`, data)
             .then((result) => {
@@ -92,7 +93,7 @@ export default {
             })
         },
         searchChannel(q, maxResults, filter) {
-            const baseURI = 'http://34.64.113.15:5000';
+            const baseURI = this.baseURI
             this.$http.get(`${baseURI}/channels`, {params: {q, maxResults, filter}})
             .then((result) => {
                 console.log(result)
