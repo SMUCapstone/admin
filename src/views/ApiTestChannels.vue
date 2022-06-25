@@ -14,7 +14,7 @@
         </el-alert>
         <div class="searchbar">
             <el-input placeholder="채널 명" v-model="channelName" class="input-with-select">
-                <template slot="prepend">?q=</template>
+                <template slot="prepend">?channelName=</template>
             </el-input>
         </div>
         <div class="searchbar">
@@ -28,10 +28,14 @@
                 <el-button v-on:click="searchChannel(channelName, maxResults, filter)" slot="append" icon="el-icon-search"></el-button>
             </el-input>
         </div>
+                <!-- <router-link :to="{name: 'ApiTestChannels', query:{ChannelName, maxResults, filter}}">
+                    hi
+                </router-link> -->
         <div v-if="resultArr" style="margin-top:20px">
             <el-table
             :data="resultArr"
-            style="width: 100%">
+            style="width: 100%"
+            empty-text="데이터 없음">
             <el-table-column
                 fixed
                 label="Thumbnail"
@@ -59,6 +63,15 @@
                 </el-row>
                 </template>
             </el-table-column>
+            <el-table-column
+                label="이동"
+                width="120">
+                <template slot-scope="scope">
+                <el-row>
+                    <el-button v-on:click="toChannel(scope.row.channelId)" plain>채널 이동</el-button>
+                </el-row>
+                </template>
+            </el-table-column>
             </el-table>
         </div>
     </div>
@@ -68,15 +81,15 @@
 export default {
     data() {
         return {
-      title: '',
-      channelName:'',
-      maxResults:'',
-      filter:'',
-      searchResult: false,
-      resultArr:[],
-      response: 0,
-      baseURI:'http://34.64.113.15:5000'
-    }
+            title: '',
+            channelName:'',
+            maxResults:'',
+            filter:'',
+            searchResult: false,
+            resultArr:[],
+            response: 0,
+            baseURI:'http://34.64.113.15:5000'
+        }
     },
     methods:{
         addYoutuber(CID){
@@ -90,6 +103,9 @@ export default {
                     this.response = -1
                 }
                 setTimeout(()=>{this.response = 0}, 1000)
+            }).catch(()=>{
+                this.response = -1
+                setTimeout(()=>{this.response = 0}, 1000)
             })
         },
         searchChannel(q, maxResults, filter) {
@@ -99,6 +115,12 @@ export default {
                 console.log(result)
                 this.resultArr = result.data.items
             })
+        },
+        toChannel(channelId) {
+            window.open(
+                "https://www.youtube.com/channel/"+channelId,
+                '_blank' // <- This is what makes it open in a new window.
+            )
         }
     }
 }

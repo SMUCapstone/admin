@@ -23,7 +23,7 @@
         </div>
       </el-aside>
       <el-main>
-        <div v-if="state">
+        <div>
           <h3 style="text-align:left">{{title}}</h3>
           <router-view>
           </router-view>
@@ -37,9 +37,10 @@
 export default {
   data() {
     return {
-      tableData: 'dsafsd',
+      tableData: '',
       input: '',
-      state: 0
+      state: 0,
+      title:''
     }
   },
   methods: {
@@ -47,23 +48,18 @@ export default {
       switch (state) {
         case 0:
           this.title =""
-          this.state = state
           break
         case 1:
           this.title ="유튜버 목록 조회"
-          this.state = state
           break
         case 2:
           this.title ="동영상 목록 조회"
-          this.state = state
           break
         case 3:
           this.title ="apis/channels"
-          this.state = state
           break
         case 4:
           this.title ="apis/get"
-          this.state = state
           break
         default:
           break
@@ -97,7 +93,7 @@ div.searchbar {
 div.cell {
   text-align: center;
 }
-.el-alert--success {
+.el-alert {
   z-index: 100;
   width: 500px;
   position: fixed;
