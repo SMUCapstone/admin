@@ -93,7 +93,7 @@ export default {
             })
         },
         searchChannel(q, maxResults, filter) {
-            const baseURI = 'http://34.64.113.15:5000';
+            const baseURI = 'http://34.64.56.32:5000';
             this.$http.get(`${baseURI}/channels`, {params: {q, maxResults, filter}})
             .then((result) => {
                 console.log(result)

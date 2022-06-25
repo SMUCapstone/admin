@@ -89,7 +89,7 @@ export default {
             searchResult: false,
             resultArr:[],
             response: 0,
-            baseURI:'http://34.64.113.15:5000'
+            baseURI:'http://34.64.56.32:5000'
         }
     },
     methods:{
