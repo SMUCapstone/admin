@@ -1,5 +1,6 @@
 <template>
-  <div v-if="resultArr" style="margin-top:20px">
+  <div v-if="resultArr" style="margin-top:20px;height:100%">
+    <h3 style="text-align:left">유튜버 목록 조회</h3>
     <el-alert
         v-if="response==1"
         title="삭제 성공!"
@@ -14,7 +15,7 @@
     </el-alert>
     <el-table
       :data="resultArr"
-      style="width: 100%"
+      style="width: 100%;height:100%"
       empty-text="데이터 없음">
       <el-table-column
           fixed
@@ -48,7 +49,7 @@
           width="120">
           <template slot-scope="scope">
           <el-row>
-              <el-button v-on:click="toChannel(scope.row.id)" plain>채널 이동</el-button>
+              <el-button v-on:click="toChannel(scope.row.id)" plain>이동</el-button>
           </el-row>
           </template>
       </el-table-column>

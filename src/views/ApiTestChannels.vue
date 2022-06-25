@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div style="height:100%">
+        <h3 style="text-align:left">apis/channels</h3>
         <el-alert
             v-if="response==1"
             title="저장 성공!"
@@ -31,10 +32,10 @@
                 <!-- <router-link :to="{name: 'ApiTestChannels', query:{ChannelName, maxResults, filter}}">
                     hi
                 </router-link> -->
-        <div v-if="resultArr" style="margin-top:20px">
+        <div v-if="resultArr" style="margin-top:20px;height:100%">
             <el-table
             :data="resultArr"
-            style="width: 100%"
+            style="width: 100%; height:100%"
             empty-text="데이터 없음">
             <el-table-column
                 fixed
@@ -55,20 +56,20 @@
                 width="250">
             </el-table-column>
             <el-table-column
-                label="스크랩수행"
-                width="120">
+                label="추가"
+                width="80">
                 <template slot-scope="scope">
                 <el-row>
-                    <el-button v-on:click="addYoutuber(scope.row.channelId)" plain>채널 추가</el-button>
+                    <el-button v-on:click="addYoutuber(scope.row.channelId)" plain>추가</el-button>
                 </el-row>
                 </template>
             </el-table-column>
             <el-table-column
                 label="이동"
-                width="120">
+                width="80">
                 <template slot-scope="scope">
                 <el-row>
-                    <el-button v-on:click="toChannel(scope.row.channelId)" plain>채널 이동</el-button>
+                    <el-button v-on:click="toChannel(scope.row.channelId)" plain>이동</el-button>
                 </el-row>
                 </template>
             </el-table-column>

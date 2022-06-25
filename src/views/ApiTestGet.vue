@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3 style="text-align:left">apis/get</h3>
         <el-alert
             v-if="response==1"
             title="저장 성공!"
