@@ -24,6 +24,9 @@
                 <el-button v-on:click="searchContents(channelId, pageToken)" slot="append" icon="el-icon-search"></el-button>
             </el-input>
         </div>
+        <el-row style="margin-top:15px">
+            <el-button v-on:click="addContents(resultArr)" plain>전체 추가</el-button>
+        </el-row>
         <div v-if="resultArr" style="margin-top:20px; height:100%">
             <el-table
             :data="resultArr"
@@ -32,9 +35,9 @@
             <el-table-column
                 fixed
                 label="Thumbnail"
-                width="100">
+                width="120">
                 <template slot-scope="scope">
-                <img style="width: 70px; height: 70px" :src="scope.row.thumbnail">
+                <img style="width: 120px; height: 90px" :src="scope.row.thumbnail">
                 </template>
             </el-table-column>
             <el-table-column
@@ -48,11 +51,11 @@
                 width="250">
             </el-table-column>
             <el-table-column
-                label="스크랩수행"
+                label="추가"
                 width="120">
                 <template slot-scope="scope">
                 <el-row>
-                    <el-button v-on:click="addContents(scope.row.channelId)" plain>채널 추가</el-button>
+                    <el-button v-on:click="addContents([{'cid':scope.row.cid, 'video_name':scope.row.video_name, 'thumbnail':scope.row.thumbnail, 'video_url': scope.row.video_url, 'hits':scope.row.hits, 'comment_num': scope.row.comment_num}])" plain>영상 추가</el-button>
                 </el-row>
                 </template>
             </el-table-column>
@@ -76,9 +79,9 @@ export default {
     }
     },
     methods:{
-        addContents(VID){
-            const baseURI = 'http://localhost:5000'
-            var data = {id:VID}
+        addContents(contArr){
+            const baseURI = 'http://34.64.56.32:5000'
+            var data = {contArr}
             this.$http.post(`${baseURI}/contents`, data)
             .then((result) => {
                 if (result.data.response === 'save success!') {
@@ -91,7 +94,7 @@ export default {
             console.log($route.query)
         },
         searchContents(channelId, pageToken='') {
-            const baseURI = 'http://34.64.56.32:5000';
+            const baseURI = 'http://34.64.56.32:5000'
             this.$http.get(`${baseURI}/contents`, {params: {channelId, pageToken}})
             .then((result) => {
                 console.log(result)

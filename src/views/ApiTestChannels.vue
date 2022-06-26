@@ -46,7 +46,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="Channelname"
+                prop="channelname"
                 label="ChannelName"
                 width="180">
             </el-table-column>
