@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h3 style="text-align:left">apis/get</h3>
+    <div style="height:100%">
+        <h3 style="text-align:left">apis/contents</h3>
         <el-alert
             v-if="response==1"
             title="저장 성공!"
@@ -14,25 +14,21 @@
             show-icon>
         </el-alert>
         <div class="searchbar">
-            <el-input placeholder="채널 명" v-model="channelName" class="input-with-select">
-                <template slot="prepend">?q=</template>
+            <el-input placeholder="채널 아이디" v-model="channelId" class="input-with-select">
+                <template slot="prepend">?channelId=</template>
             </el-input>
         </div>
         <div class="searchbar">
-            <el-input placeholder="결과 수(기본10)" v-model="maxResults" class="input-with-select">
-            <template slot="prepend">?maxResults=</template>
+            <el-input size="medium" placeholder="페이지토큰(없어도 됨)" v-model="pageToken" class="input-with-select">
+                <template slot="prepend">?pageToken=</template>
+                <el-button v-on:click="searchContents(channelId, pageToken)" slot="append" icon="el-icon-search"></el-button>
             </el-input>
         </div>
-        <div class="searchbar">
-            <el-input size="medium" placeholder="구독자 00만 이상(기본10)" v-model="filter" class="input-with-select">
-                <template slot="prepend">?filter=</template>
-                <el-button v-on:click="searchChannel(channelName, maxResults, filter)" slot="append" icon="el-icon-search"></el-button>
-            </el-input>
-        </div>
-        <div v-if="resultArr" style="margin-top:20px">
+        <div v-if="resultArr" style="margin-top:20px; height:100%">
             <el-table
             :data="resultArr"
-            style="width: 100%">
+            style="width: 100%; height:100%"
+            empty-text="데이터 없음">
             <el-table-column
                 fixed
                 label="Thumbnail"
@@ -42,13 +38,13 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="Channelname"
-                label="ChannelName"
+                prop="video_name"
+                label="video_name"
                 width="180">
             </el-table-column>
             <el-table-column
-                prop="channelId"
-                label="ChannelId"
+                prop="id"
+                label="videoId"
                 width="250">
             </el-table-column>
             <el-table-column
@@ -56,7 +52,7 @@
                 width="120">
                 <template slot-scope="scope">
                 <el-row>
-                    <el-button v-on:click="addYoutuber(scope.row.channelId)" plain>채널 추가</el-button>
+                    <el-button v-on:click="addContents(scope.row.channelId)" plain>채널 추가</el-button>
                 </el-row>
                 </template>
             </el-table-column>
@@ -70,7 +66,8 @@ export default {
     data() {
         return {
       title: '',
-      channelName:'',
+      channelId:'',
+      pageToken:'',
       maxResults:'',
       filter:'',
       searchResult: false,
@@ -79,10 +76,10 @@ export default {
     }
     },
     methods:{
-        addYoutuber(CID){
+        addContents(VID){
             const baseURI = 'http://localhost:5000'
-            var data = {id:CID}
-            this.$http.post(`${baseURI}/youtubers`, data)
+            var data = {id:VID}
+            this.$http.post(`${baseURI}/contents`, data)
             .then((result) => {
                 if (result.data.response === 'save success!') {
                     this.response = 1
@@ -91,13 +88,14 @@ export default {
                 }
                 setTimeout(()=>{this.response = 0}, 1000)
             })
+            console.log($route.query)
         },
-        searchChannel(q, maxResults, filter) {
+        searchContents(channelId, pageToken='') {
             const baseURI = 'http://34.64.56.32:5000';
-            this.$http.get(`${baseURI}/channels`, {params: {q, maxResults, filter}})
+            this.$http.get(`${baseURI}/contents`, {params: {channelId, pageToken}})
             .then((result) => {
                 console.log(result)
-                this.resultArr = result.data.items
+                this.resultArr = result.data.data
             })
         }
     }

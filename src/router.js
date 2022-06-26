@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import ApiTestChannels from './views/ApiTestChannels.vue'
-import ApiTestGet from './views/ApiTestGet.vue'
+import ApiTestContents from './views/ApiTestContents.vue'
 import Youtubers from './views/Youtubers.vue'
 import Videos from './views/Videos.vue'
 
@@ -20,9 +20,9 @@ export default new Router({
         name: 'ApiTestChannels',
         component: ApiTestChannels
       },{
-        path: '/apis/get',
-        name: 'ApiTestGet',
-        component: ApiTestGet
+        path: '/apis/contents',
+        name: 'ApiTestContents',
+        component: ApiTestContents
       },{
         path: '/videos',
         name: 'Videos',

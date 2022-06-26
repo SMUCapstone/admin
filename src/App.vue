@@ -10,13 +10,15 @@
               <el-menu-item-group>
                 <router-link to="/youtubers"><el-menu-item index="1-1">유튜버 목록 조회</el-menu-item></router-link>
                 <router-link to="/videos"><el-menu-item index="1-2">동영상 목록 조회</el-menu-item></router-link>
+                <router-link to="/videos"><el-menu-item index="1-3">동영상</el-menu-item></router-link>
+                <router-link to="/videos"><el-menu-item index="1-4">동영상 </el-menu-item></router-link>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title"><i class="el-icon-menu"></i>api 테스트</template>
               <el-menu-item-group>
-                <router-link to="/apis/channels"><el-menu-item index="2-1">Channels</el-menu-item></router-link>
-                <router-link to="/apis/get"><el-menu-item index="2-2">get</el-menu-item></router-link>
+                <router-link to="/apis/channels"><el-menu-item index="2-1">channels</el-menu-item></router-link>
+                <router-link to="/apis/contents"><el-menu-item index="2-2">contents</el-menu-item></router-link>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>

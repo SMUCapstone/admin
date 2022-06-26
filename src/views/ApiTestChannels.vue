@@ -26,7 +26,7 @@
         <div class="searchbar">
             <el-input size="medium" placeholder="구독자 00만 이상(기본10)" v-model="filter" class="input-with-select">
                 <template slot="prepend">?filter=</template>
-                <el-button v-on:click="searchChannel(channelName, maxResults, filter)" slot="append" icon="el-icon-search"></el-button>
+                <el-button v-on:click="()=>{addQueries(channelName, maxResults, filter);searchChannel(channelName, maxResults, filter)}" slot="append" icon="el-icon-search"></el-button>
             </el-input>
         </div>
                 <!-- <router-link :to="{name: 'ApiTestChannels', query:{ChannelName, maxResults, filter}}">
@@ -92,6 +92,15 @@ export default {
             baseURI:'http://34.64.56.32:5000'
         }
     },
+    mounted () {
+        this.$nextTick(
+        function () {
+            if (Object.keys(this.$route.query).length!==0) {
+                this.searchChannel(this.$route.query.q, this.$route.query.maxResults, this.$route.query.filter)
+            }
+        }
+        )
+    },
     methods:{
         addYoutuber(CID){
             const baseURI = this.baseURI
@@ -107,6 +116,14 @@ export default {
             }).catch(()=>{
                 this.response = -1
                 setTimeout(()=>{this.response = 0}, 1000)
+            })
+        },
+        addQueries(q, maxResults, filter) {
+            this.$router.replace({
+                path: this.$route.path,
+                query: {
+                    q, maxResults, filter
+                }
             })
         },
         searchChannel(q, maxResults, filter) {
