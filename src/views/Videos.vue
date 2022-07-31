@@ -3,13 +3,13 @@
         <h3 style="text-align:left">apis/contents</h3>
         <el-alert
             v-if="response==1"
-            title="저장 성공!"
+            title="수행 성공!"
             type="success"
             show-icon>
         </el-alert>
         <el-alert
             v-if="response==-1"
-            title="저장 실패"
+            title="수행 실패"
             type="error"
             show-icon>
         </el-alert>
@@ -93,7 +93,7 @@ export default {
             const baseURI = 'http://34.64.56.32:5000'
             this.$http.get(`${baseURI}/scrape`, {params: {recognize}})
             .then((result) => {
-                if (result.data.response === 'success') {
+                if (result.data === 'success') {
                     this.response = 1
                 } else {
                     this.response = -1
@@ -113,7 +113,7 @@ export default {
         },
         stateToString(state) {
           if (state==='1'){
-            return '수행완료'
+            return '작업중'
           } else if (state==='-1'){
             return '수행 전'
           } else if (state==='0'){
