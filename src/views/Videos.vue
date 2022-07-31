@@ -64,9 +64,9 @@
                 label="수행"
                 width="120">
                 <template slot-scope="scope">
-                <el-row>
-                    <el-button v-on:click="()=>{}" plain>스크랩</el-button>
-                </el-row>
+                    <el-row>
+                        <el-button v-on:click="()=>{scrapeComments(scope.row.recognize)}" plain>스크랩</el-button>
+                    </el-row>
                 </template>
             </el-table-column>
             </el-table>
@@ -89,12 +89,11 @@ export default {
     }
     },
     methods:{
-        addContents(contArr){
+        scrapeComments(recognize){
             const baseURI = 'http://34.64.56.32:5000'
-            var data = {contArr}
-            this.$http.post(`${baseURI}/contents`, data)
+            this.$http.get(`${baseURI}/scrape`, {params: {recognize}})
             .then((result) => {
-                if (result.data.response === 'save success!') {
+                if (result.data.response === 'success') {
                     this.response = 1
                 } else {
                     this.response = -1
@@ -119,6 +118,8 @@ export default {
             return '수행 전'
           } else if (state==='0'){
             return '수행 중'
+          } else if (state==='100'){
+            return '수행 완료'
           }
         }
     }
