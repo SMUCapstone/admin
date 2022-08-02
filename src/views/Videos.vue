@@ -65,7 +65,7 @@
                 width="120">
                 <template slot-scope="scope">
                     <el-row>
-                        <el-button v-on:click="()=>{scrapeComments(scope.row.recognize)}" plain>스크랩</el-button>
+                        <el-button v-on:click="scrapeComments(scope.row.recognize)" plain>스크랩</el-button>
                     </el-row>
                 </template>
             </el-table-column>
@@ -100,7 +100,6 @@ export default {
                 }
                 setTimeout(()=>{this.response = 0}, 1000)
             })
-            console.log($route.query)
         },
         searchContents(channelId, pageToken='') {
             const fromDB=true;
