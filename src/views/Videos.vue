@@ -69,6 +69,15 @@
                     </el-row>
                 </template>
             </el-table-column>
+            <el-table-column
+                label="동영상"
+                width="120">
+                <template slot-scope="scope">
+                    <el-row>
+                        <el-button v-on:click="gotoVideo(scope.row.url)" plain>보기</el-button>
+                    </el-row>
+                </template>
+            </el-table-column>
             </el-table>
         </div>
     </div>
@@ -78,15 +87,26 @@
 export default {
     data() {
         return {
-      title: '',
-      channelId:'',
-      pageToken:'',
-      maxResults:'',
-      filter:'',
-      searchResult: false,
-      resultArr:[],
-      response: 0
-    }
+            title: '',
+            channelId:'',
+            pageToken:'',
+            maxResults:'',
+            filter:'',
+            searchResult: false,
+            resultArr:[],
+            response: 0
+        }
+    },
+    mounted () {
+        this.$nextTick(
+        function () {
+            if (Object.keys(this.$route.query).length!==0) {
+                this.searchContents(this.$route.query.channelId, this.$route.query.pageToken)
+                this.channelId = this.$route.query.channelId
+                this.pageToken = this.$route.query.pageToken
+            }
+        }
+        )
     },
     methods:{
         scrapeComments(recognize){
@@ -102,6 +122,12 @@ export default {
             })
         },
         searchContents(channelId, pageToken='') {
+            this.$router.replace({
+                path: this.$route.path,
+                query: {
+                    channelId, pageToken
+                }
+            })
             const fromDB=true;
             const baseURI = 'http://34.64.56.32:5000'
             this.$http.get(`${baseURI}/contents`, {params: {channelId, pageToken, fromDB}})
@@ -120,7 +146,13 @@ export default {
           } else if (state==='100'){
             return '수행 완료'
           }
-        }
+        },
+        gotoVideo(url) {
+            window.open(
+                "https://"+url,
+                '_blank' // <- This is what makes it open in a new window.
+            )
+        },
     }
 }
 </script>

@@ -53,6 +53,15 @@
           </el-row>
           </template>
       </el-table-column>
+      <el-table-column
+          label="이동"
+          width="120">
+          <template slot-scope="scope">
+          <el-row>
+              <el-button v-on:click="()=>{toVideos(scope.row.id)}" plain>동영상목록</el-button>
+          </el-row>
+          </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -127,6 +136,9 @@ export default {
                 "https://www.youtube.com/channel/"+channelId,
                 '_blank' // <- This is what makes it open in a new window.
             )
+        },
+        toVideos(channelId) {
+            this.$router.push({ path: 'videos', query: { channelId }})
         }
     }
 }
