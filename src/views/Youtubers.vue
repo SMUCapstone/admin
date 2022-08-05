@@ -54,7 +54,7 @@
           </template>
       </el-table-column>
       <el-table-column
-          label="이동"
+          label="동영상목록"
           width="120">
           <template slot-scope="scope">
           <el-row>

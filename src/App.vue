@@ -10,7 +10,7 @@
               <el-menu-item-group>
                 <router-link to="/youtubers"><el-menu-item index="1-1">유튜버 목록 조회</el-menu-item></router-link>
                 <router-link to="/videos"><el-menu-item index="1-2">동영상 목록 조회</el-menu-item></router-link>
-                <router-link to="/video"><el-menu-item index="1-3">동영상</el-menu-item></router-link>
+                <router-link to="/manual"><el-menu-item index="1-3">수동으로 유튜버 추가</el-menu-item></router-link>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="2">

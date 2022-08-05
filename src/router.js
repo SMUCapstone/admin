@@ -5,6 +5,7 @@ import ApiTestChannels from './views/ApiTestChannels.vue'
 import ApiTestContents from './views/ApiTestContents.vue'
 import Youtubers from './views/Youtubers.vue'
 import Videos from './views/Videos.vue'
+import addByHands from './views/AddByHands'
 
 Vue.use(Router)
 
@@ -31,6 +32,10 @@ export default new Router({
         path: '/youtubers',
         name: 'Youtubers',
         component: Youtubers
+      },{
+        path: '/manual',
+        name: 'addByHands',
+        component: addByHands
       }
   ]
 })
